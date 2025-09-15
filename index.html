@@ -1,0 +1,30 @@
+---
+layout: default
+title: Home
+---
+
+<div class="home">
+    <h1>Welcome to {{ site.title }}</h1>
+    <p>{{ site.description }}</p>
+    
+    <h2>Recent Posts</h2>
+    <ul class="post-list">
+        {% for post in site.posts limit:5 %}
+        <li>
+            <article class="post-preview">
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                <time datetime="{{ post.date | date_to_xmlschema }}">
+                    {{ post.date | date: "%B %d, %Y" }}
+                </time>
+                {% if post.excerpt %}
+                    <p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+                {% endif %}
+            </article>
+        </li>
+        {% endfor %}
+    </ul>
+    
+    {% if site.posts.size > 5 %}
+    <p><a href="{{ '/archive' | relative_url }}">View all posts</a></p>
+    {% endif %}
+</div>
